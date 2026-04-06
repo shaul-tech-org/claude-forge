@@ -24,10 +24,10 @@ Open http://localhost:3000
 | Layer | Technology |
 |-------|-----------|
 | Frontend | React + TypeScript + React Flow + Tailwind CSS |
-| Backend | Node.js |
-| Database | SQLite |
+| Backend | PHP 8.4 + Laravel 13 |
+| Database | PostgreSQL 18 |
 | AI Engine | Local Claude Code CLI |
-| Infra | Docker |
+| Infra | Docker Compose |
 
 ## License
 

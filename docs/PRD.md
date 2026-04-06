@@ -120,10 +120,10 @@ Claude Code는 `.claude/` 디렉토리 내의 설정 파일들(에이전트, 스
 |------|------|
 | 프론트엔드 | React + TypeScript + Tailwind CSS |
 | 드래그 앤 드롭 | React Flow |
-| 백엔드 | Node.js |
-| DB | SQLite (템플릿/패턴 저장) |
+| 백엔드 | PHP 8.4 + Laravel 13 |
+| DB | PostgreSQL 18 |
 | AI 엔진 | 로컬 Claude Code CLI (Paperclip adapter 방식) |
-| 인프라 | Docker + Docker Compose |
+| 인프라 | Docker Compose |
 | 라이선스 | MIT (오픈소스) |
 
 ## 7. .claude 디렉토리 구조 (참고)
