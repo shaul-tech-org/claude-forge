@@ -1,6 +1,6 @@
 import type { Edge } from '@xyflow/react';
 
-export const FORGE_EDGE_TYPES = ['delegation', 'uses', 'applies'] as const;
+export const FORGE_EDGE_TYPES = ['delegation', 'uses', 'applies', 'trigger', 'reference', 'load'] as const;
 export type ForgeEdgeType = (typeof FORGE_EDGE_TYPES)[number];
 
 export interface ForgeEdgeData {
