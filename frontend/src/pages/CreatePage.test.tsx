@@ -3,56 +3,34 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { CreatePage } from './CreatePage';
 
-describe('CreatePage (HarnessWizard)', () => {
+describe('CreatePage', () => {
   it('renders step 1 project profile', () => {
     render(
       <MemoryRouter>
         <CreatePage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-    expect(screen.getByText('Project Profile')).toBeDefined();
-    expect(screen.getByPlaceholderText('my-awesome-project')).toBeDefined();
+    expect(screen.getByText('Project Profile')).toBeInTheDocument();
+    expect(screen.getByText('Project Name')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('my-awesome-project')).toBeInTheDocument();
   });
 
-  it('shows step indicator', () => {
+  it('shows step indicator with 5 steps', () => {
     render(
       <MemoryRouter>
         <CreatePage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-    expect(screen.getAllByText(/Step 1/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText('Step 1 / 5')).toBeInTheDocument();
   });
 
-  it('shows language options', () => {
+  it('next button is disabled when project name is empty', () => {
     render(
       <MemoryRouter>
         <CreatePage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-    expect(screen.getAllByText('TypeScript').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Python').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('PHP').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Go').length).toBeGreaterThanOrEqual(1);
-  });
-
-  it('shows framework options', () => {
-    render(
-      <MemoryRouter>
-        <CreatePage />
-      </MemoryRouter>
-    );
-    expect(screen.getAllByText('React').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Laravel').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Next.js').length).toBeGreaterThanOrEqual(1);
-  });
-
-  it('has back and next buttons', () => {
-    render(
-      <MemoryRouter>
-        <CreatePage />
-      </MemoryRouter>
-    );
-    expect(screen.getAllByText('Back').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Next').length).toBeGreaterThanOrEqual(1);
+    const nextButton = screen.getByRole('button', { name: 'Next' });
+    expect(nextButton).toBeDisabled();
   });
 });

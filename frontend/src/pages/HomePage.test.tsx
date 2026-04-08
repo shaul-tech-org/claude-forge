@@ -8,29 +8,29 @@ describe('HomePage', () => {
     render(
       <MemoryRouter>
         <HomePage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-    expect(screen.getByText('claude-forge')).toBeDefined();
+    expect(screen.getByText('claude-forge')).toBeInTheDocument();
   });
 
   it('renders 4 dashboard cards', () => {
     render(
       <MemoryRouter>
         <HomePage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-    expect(screen.getAllByText('New Harness').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Analyze Harness').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Pattern Library').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('Learning Guide').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText('New Harness')).toBeInTheDocument();
+    expect(screen.getByText('Analyze Harness')).toBeInTheDocument();
+    expect(screen.getByText('Pattern Library')).toBeInTheDocument();
+    expect(screen.getByText('Learning Guide')).toBeInTheDocument();
   });
 
   it('renders canvas builder link', () => {
     render(
       <MemoryRouter>
         <HomePage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-    expect(screen.getAllByText(/Canvas Builder/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText(/Canvas Builder/)).toBeInTheDocument();
   });
 });

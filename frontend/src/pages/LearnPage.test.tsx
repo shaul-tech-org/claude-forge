@@ -8,34 +8,37 @@ describe('LearnPage', () => {
     render(
       <MemoryRouter>
         <LearnPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-    expect(screen.getByText('Learning Guide')).toBeDefined();
+    expect(screen.getByText('Learning Guide')).toBeInTheDocument();
   });
 
   it('renders 4 navigation sections', () => {
     render(
       <MemoryRouter>
         <LearnPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-    // These texts appear in both sidebar nav and content area
+    // The first section text appears both in sidebar and as heading
     expect(screen.getAllByText('Harness Engineering이란?').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('6축 프레임워크').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('시작하기 튜토리얼').length).toBeGreaterThanOrEqual(1);
-    expect(screen.getAllByText('FAQ').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText('6축 프레임워크')).toBeInTheDocument();
+    expect(screen.getByText('시작하기 튜토리얼')).toBeInTheDocument();
+    expect(screen.getByText('FAQ')).toBeInTheDocument();
   });
 
-  it('switches section content when clicked', () => {
+  it('displays section content when clicked', () => {
     render(
       <MemoryRouter>
         <LearnPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
-    const faqButtons = screen.getAllByText('FAQ');
-    // Click the sidebar nav button (first one)
-    fireEvent.click(faqButtons[0]);
-    // FAQ heading should appear as main content title
-    expect(screen.getAllByText('FAQ').length).toBeGreaterThanOrEqual(2);
+    // First section is active by default
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Harness Engineering이란?');
+
+    // Click on FAQ section
+    fireEvent.click(screen.getByRole('button', { name: 'FAQ' }));
+
+    // FAQ heading should now be the main content h1
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('FAQ');
   });
 });
