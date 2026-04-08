@@ -32,6 +32,7 @@ services:
     volumes:
       - ./backend:/var/www/html
       - backend_vendor:/var/www/html/vendor
+      - ${FORGE_PROJECT_ROOT:-.}:/mnt/project:rw
     env_file:
       - ./backend/.env
     networks:
