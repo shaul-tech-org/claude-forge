@@ -30,9 +30,14 @@ function NodeButton({ nodeType, label, icon, color }: NodeButtonProps) {
 
 interface ToolbarProps {
   onOpenRecommend?: () => void;
+  onOpenWizard?: () => void;
+  onOpenClaudeMd?: () => void;
+  onOpenSettings?: () => void;
+  onOpenMcp?: () => void;
+  onOpenHooks?: () => void;
 }
 
-export function Toolbar({ onOpenRecommend }: ToolbarProps) {
+export function Toolbar({ onOpenRecommend, onOpenWizard, onOpenClaudeMd, onOpenSettings, onOpenMcp, onOpenHooks }: ToolbarProps) {
   return (
     <aside className="flex w-60 shrink-0 flex-col border-r border-gray-200 bg-white">
       <div className="border-b border-gray-200 px-4 py-3">
@@ -64,6 +69,44 @@ export function Toolbar({ onOpenRecommend }: ToolbarProps) {
         />
       </div>
 
+      <div className="flex flex-col gap-1.5 border-t border-gray-200 px-4 py-3">
+        <p className="mb-0.5 text-xs font-semibold uppercase tracking-wider text-gray-400">
+          Config
+        </p>
+        {onOpenClaudeMd && (
+          <button
+            onClick={onOpenClaudeMd}
+            className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-xs font-medium text-gray-600 hover:bg-gray-100"
+          >
+            <span className="text-sm">📄</span> CLAUDE.md
+          </button>
+        )}
+        {onOpenSettings && (
+          <button
+            onClick={onOpenSettings}
+            className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-xs font-medium text-gray-600 hover:bg-gray-100"
+          >
+            <span className="text-sm">⚙️</span> settings.json
+          </button>
+        )}
+        {onOpenMcp && (
+          <button
+            onClick={onOpenMcp}
+            className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-xs font-medium text-gray-600 hover:bg-gray-100"
+          >
+            <span className="text-sm">🔌</span> .mcp.json
+          </button>
+        )}
+        {onOpenHooks && (
+          <button
+            onClick={onOpenHooks}
+            className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-left text-xs font-medium text-gray-600 hover:bg-gray-100"
+          >
+            <span className="text-sm">🪝</span> Hooks
+          </button>
+        )}
+      </div>
+
       {onOpenRecommend && (
         <div className="px-4 pb-2">
           <button
@@ -81,6 +124,16 @@ export function Toolbar({ onOpenRecommend }: ToolbarProps) {
       <div className="mt-auto">
         <FolderPreview />
         <ExportButton />
+        {onOpenWizard && (
+          <div className="border-t border-gray-200 px-4 py-2">
+            <button
+              onClick={onOpenWizard}
+              className="w-full text-center text-xs text-gray-400 hover:text-gray-600"
+            >
+              Setup Wizard
+            </button>
+          </div>
+        )}
       </div>
     </aside>
   );

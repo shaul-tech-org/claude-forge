@@ -1,7 +1,9 @@
+import { useMemo, useState } from 'react';
 import { useCanvasContext } from '../../contexts/CanvasContext';
 import { AgentPropertyForm } from './AgentPropertyForm';
 import { SkillPropertyForm } from './SkillPropertyForm';
 import { RulePropertyForm } from './RulePropertyForm';
+import { extractKeywords } from '../../lib/keywords';
 import type { AgentNodeData, SkillNodeData, RuleNodeData } from '../../types/node';
 
 const NODE_TYPE_META = {
@@ -12,6 +14,12 @@ const NODE_TYPE_META = {
 
 export function PropertyPanel() {
   const { selectedNode, selectNode, updateNodeData } = useCanvasContext();
+  const [keywordsOpen, setKeywordsOpen] = useState(false);
+
+  const keywords = useMemo(
+    () => (selectedNode ? extractKeywords(selectedNode.data) : []),
+    [selectedNode],
+  );
 
   if (!selectedNode) return null;
 
@@ -59,6 +67,39 @@ export function PropertyPanel() {
           />
         )}
       </div>
+
+      {keywords.length > 0 && (
+        <div className="border-t border-gray-200">
+          <button
+            onClick={() => setKeywordsOpen(!keywordsOpen)}
+            className="flex w-full items-center justify-between px-4 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400 hover:bg-gray-50"
+          >
+            <span>Keywords ({keywords.length})</span>
+            <svg
+              className={`h-3.5 w-3.5 transition-transform ${keywordsOpen ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+            </svg>
+          </button>
+          {keywordsOpen && (
+            <div className="px-4 pb-3">
+              <div className="flex flex-wrap gap-1">
+                {keywords.map((kw) => (
+                  <span
+                    key={kw.keyword}
+                    className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${kw.color}`}
+                  >
+                    {kw.keyword}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </aside>
   );
 }

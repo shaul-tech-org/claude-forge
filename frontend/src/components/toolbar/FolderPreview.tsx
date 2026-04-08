@@ -45,13 +45,13 @@ function TreeNode({ entry, depth = 0, isLast = false, prefix = '', currentPath =
 }
 
 export function FolderPreview() {
-  const { nodes } = useCanvasContext();
+  const { nodes, projectConfig } = useCanvasContext();
   const [selectedFile, setSelectedFile] = useState<FileEntry | null>(null);
 
   const tree = useMemo(() => buildClaudeTree(nodes), [nodes]);
-  const fileList = useMemo(() => buildFileList(nodes), [nodes]);
+  const fileList = useMemo(() => buildFileList(nodes, projectConfig), [nodes, projectConfig]);
 
-  const hasNodes = nodes.length > 0;
+  const hasContent = nodes.length > 0 || Boolean(projectConfig.claudeMd);
 
   const handleFileClick = useCallback(
     (path: string) => {
@@ -67,7 +67,7 @@ export function FolderPreview() {
         <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
           Preview
         </p>
-        {hasNodes ? (
+        {hasContent ? (
           <div className="max-h-48 overflow-y-auto">
             <TreeNode entry={tree} onFileClick={handleFileClick} />
           </div>

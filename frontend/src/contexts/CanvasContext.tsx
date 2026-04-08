@@ -4,6 +4,7 @@ import { useCanvas } from '../hooks/useCanvas';
 import { useCanvasPersistence, loadCanvasState } from '../hooks/useCanvasPersistence';
 import type { ForgeNode, ForgeNodeType, ForgeNodeData } from '../types/node';
 import type { ForgeEdge } from '../types/edge';
+import { DEFAULT_PROJECT_CONFIG, type ProjectConfig, type ProjectSettings, type McpServer, type HookHandler } from '../types/project';
 
 interface CanvasContextValue {
   nodes: ForgeNode[];
@@ -20,15 +21,33 @@ interface CanvasContextValue {
   selectedNodeId: string | null;
   selectNode: (id: string | null) => void;
   selectedNode: ForgeNode | undefined;
+  projectConfig: ProjectConfig;
+  setClaudeMd: (md: string) => void;
+  setProjectSettings: (settings: ProjectSettings) => void;
+  setMcpServers: (servers: McpServer[]) => void;
+  setHooks: (hooks: HookHandler[]) => void;
 }
 
 const CanvasContext = createContext<CanvasContextValue | null>(null);
 
 const savedState = loadCanvasState();
 
+function loadProjectConfig(): ProjectConfig {
+  try {
+    const raw = localStorage.getItem('claude-forge-project-config');
+    if (raw) return JSON.parse(raw) as ProjectConfig;
+  } catch { /* ignore */ }
+  return DEFAULT_PROJECT_CONFIG;
+}
+
+function saveProjectConfig(config: ProjectConfig): void {
+  localStorage.setItem('claude-forge-project-config', JSON.stringify(config));
+}
+
 export function CanvasProvider({ children }: { children: ReactNode }) {
   const canvas = useCanvas(savedState?.nodes ?? [], savedState?.edges ?? []);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [projectConfig, setProjectConfig] = useState<ProjectConfig>(loadProjectConfig);
 
   useCanvasPersistence(canvas.nodes, canvas.edges);
 
@@ -40,6 +59,38 @@ export function CanvasProvider({ children }: { children: ReactNode }) {
     ? canvas.nodes.find((n) => n.id === selectedNodeId)
     : undefined;
 
+  const setClaudeMd = useCallback((md: string) => {
+    setProjectConfig((prev) => {
+      const next = { ...prev, claudeMd: md };
+      saveProjectConfig(next);
+      return next;
+    });
+  }, []);
+
+  const setProjectSettings = useCallback((settings: ProjectSettings) => {
+    setProjectConfig((prev) => {
+      const next = { ...prev, settings };
+      saveProjectConfig(next);
+      return next;
+    });
+  }, []);
+
+  const setMcpServers = useCallback((mcpServers: McpServer[]) => {
+    setProjectConfig((prev) => {
+      const next = { ...prev, mcpServers };
+      saveProjectConfig(next);
+      return next;
+    });
+  }, []);
+
+  const setHooks = useCallback((hooks: HookHandler[]) => {
+    setProjectConfig((prev) => {
+      const next = { ...prev, hooks };
+      saveProjectConfig(next);
+      return next;
+    });
+  }, []);
+
   return (
     <CanvasContext.Provider
       value={{
@@ -47,6 +98,11 @@ export function CanvasProvider({ children }: { children: ReactNode }) {
         selectedNodeId,
         selectNode,
         selectedNode,
+        projectConfig,
+        setClaudeMd,
+        setProjectSettings,
+        setMcpServers,
+        setHooks,
       }}
     >
       {children}

@@ -1,6 +1,7 @@
 import JSZip from 'jszip';
 import type { ForgeNode } from '../types/node';
 import type { AgentNodeData, SkillNodeData, RuleNodeData } from '../types/node';
+import type { ProjectConfig } from '../types/project';
 
 export function toKebabCase(str: string): string {
   return str
@@ -65,8 +66,63 @@ export interface FileEntry {
   content: string;
 }
 
-export function buildFileList(nodes: ForgeNode[]): FileEntry[] {
+export function buildFileList(nodes: ForgeNode[], projectConfig?: ProjectConfig): FileEntry[] {
   const files: FileEntry[] = [];
+
+  if (projectConfig?.claudeMd) {
+    files.push({ path: '.claude/CLAUDE.md', content: projectConfig.claudeMd });
+  }
+
+  const hasSettings = projectConfig?.settings &&
+    (projectConfig.settings.permissions.allow.length > 0 ||
+     projectConfig.settings.permissions.deny.length > 0 ||
+     projectConfig.settings.permissions.ask.length > 0 ||
+     Object.keys(projectConfig.settings.env).length > 0 ||
+     projectConfig.settings.model);
+
+  if (hasSettings && projectConfig?.settings) {
+    const settingsObj: Record<string, unknown> = {};
+    const perms: Record<string, string[]> = {};
+    if (projectConfig.settings.permissions.allow.length > 0) perms.allow = projectConfig.settings.permissions.allow;
+    if (projectConfig.settings.permissions.deny.length > 0) perms.deny = projectConfig.settings.permissions.deny;
+    if (projectConfig.settings.permissions.ask.length > 0) perms.ask = projectConfig.settings.permissions.ask;
+    if (Object.keys(perms).length > 0) settingsObj.permissions = perms;
+    if (Object.keys(projectConfig.settings.env).length > 0) settingsObj.env = projectConfig.settings.env;
+    if (projectConfig.settings.model) settingsObj.model = projectConfig.settings.model;
+    files.push({ path: '.claude/settings.json', content: JSON.stringify(settingsObj, null, 2) + '\n' });
+  }
+
+  if (projectConfig?.mcpServers && projectConfig.mcpServers.length > 0) {
+    const mcpObj: Record<string, { command: string; args: string[]; env?: Record<string, string> }> = {};
+    for (const server of projectConfig.mcpServers) {
+      if (!server.name) continue;
+      mcpObj[server.name] = { command: server.command, args: server.args };
+      if (Object.keys(server.env).length > 0) {
+        mcpObj[server.name].env = server.env;
+      }
+    }
+    if (Object.keys(mcpObj).length > 0) {
+      files.push({ path: '.mcp.json', content: JSON.stringify({ mcpServers: mcpObj }, null, 2) + '\n' });
+    }
+  }
+
+  if (projectConfig?.hooks && projectConfig.hooks.length > 0) {
+    const hooksObj: Record<string, { command?: string; url?: string }[]> = {};
+    for (const hook of projectConfig.hooks) {
+      if (!hooksObj[hook.event]) hooksObj[hook.event] = [];
+      const handler: { command?: string; url?: string } = {};
+      if (hook.type === 'command' && hook.command) handler.command = hook.command;
+      if (hook.type === 'http' && hook.url) handler.url = hook.url;
+      if (handler.command || handler.url) hooksObj[hook.event].push(handler);
+    }
+    // hooks go inside settings.json — update it if exists
+    const settingsIdx = files.findIndex((f) => f.path === '.claude/settings.json');
+    if (settingsIdx >= 0) {
+      const existing = JSON.parse(files[settingsIdx].content);
+      existing.hooks = hooksObj;
+      files[settingsIdx].content = JSON.stringify(existing, null, 2) + '\n';
+    }
+  }
 
   for (const node of nodes) {
     if (node.data.type === 'agent') {
@@ -97,9 +153,19 @@ export function buildFileList(nodes: ForgeNode[]): FileEntry[] {
   return files.sort((a, b) => a.path.localeCompare(b.path));
 }
 
-export async function exportToZip(nodes: ForgeNode[]): Promise<Blob> {
+export async function exportToZip(nodes: ForgeNode[], projectConfig?: ProjectConfig): Promise<Blob> {
   const zip = new JSZip();
   const claude = zip.folder('.claude')!;
+
+  if (projectConfig?.claudeMd) {
+    claude.file('CLAUDE.md', projectConfig.claudeMd);
+  }
+
+  const fileList = buildFileList(nodes, projectConfig);
+  const settingsFile = fileList.find((f) => f.path === '.claude/settings.json');
+  if (settingsFile) {
+    claude.file('settings.json', settingsFile.content);
+  }
 
   const agents = nodes.filter((n) => n.data.type === 'agent');
   const skills = nodes.filter((n) => n.data.type === 'skill');
