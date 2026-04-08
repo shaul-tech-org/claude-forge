@@ -22,7 +22,7 @@ function TreeNode({ entry, depth = 0, isLast = false, prefix = '', currentPath =
         className={`whitespace-pre font-mono text-xs leading-5 ${
           !entry.isDir ? 'cursor-pointer rounded hover:bg-gray-100' : ''
         }`}
-        onClick={!entry.isDir && onFileClick ? () => onFileClick(fullPath) : undefined}
+        onClick={!entry.isDir && onFileClick ? () => { onFileClick(fullPath); } : undefined}
       >
         <span className="text-gray-400">{prefix}{connector}</span>
         <span className={entry.isDir ? 'text-blue-600 font-medium' : 'text-gray-600 hover:text-gray-900'}>
@@ -31,10 +31,10 @@ function TreeNode({ entry, depth = 0, isLast = false, prefix = '', currentPath =
       </div>
       {entry.children?.map((child, i) => (
         <TreeNode
-          key={child.name + i}
+          key={`${child.name}${String(i)}`}
           entry={child}
           depth={depth + 1}
-          isLast={i === entry.children!.length - 1}
+          isLast={i === (entry.children?.length ?? 0) - 1}
           prefix={childPrefix}
           currentPath={fullPath}
           onFileClick={onFileClick}
@@ -80,7 +80,7 @@ export function FolderPreview() {
         <FilePreviewModal
           path={selectedFile.path}
           content={selectedFile.content}
-          onClose={() => setSelectedFile(null)}
+          onClose={() => { setSelectedFile(null); }}
         />
       )}
     </>

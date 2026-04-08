@@ -11,7 +11,8 @@ const MODEL_STYLES: Record<AgentModel, { bg: string; badge: string; border: stri
 type AgentNodeProps = NodeProps & { data: AgentNodeData };
 
 function AgentNodeComponent({ data, selected }: AgentNodeProps) {
-  const style = MODEL_STYLES[data.model] ?? MODEL_STYLES.sonnet;
+  const model = data.model ?? 'sonnet';
+  const style = MODEL_STYLES[model];
   const hasInstructions = Boolean(data.instructions);
 
   return (

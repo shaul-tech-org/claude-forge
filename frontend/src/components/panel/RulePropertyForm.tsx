@@ -53,7 +53,7 @@ export function RulePropertyForm({ data, onUpdate }: RulePropertyFormProps) {
         <input
           type="text"
           value={data.label}
-          onChange={(e) => onUpdate({ label: e.target.value })}
+          onChange={(e) => { onUpdate({ label: e.target.value }); }}
           className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
         />
       </div>
@@ -63,7 +63,7 @@ export function RulePropertyForm({ data, onUpdate }: RulePropertyFormProps) {
         <input
           type="text"
           value={data.description}
-          onChange={(e) => onUpdate({ description: e.target.value })}
+          onChange={(e) => { onUpdate({ description: e.target.value }); }}
           placeholder="Rule의 목적을 간단히 설명"
           className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
         />
@@ -75,7 +75,7 @@ export function RulePropertyForm({ data, onUpdate }: RulePropertyFormProps) {
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
-              onClick={() => onUpdate({ category: cat })}
+              onClick={() => { onUpdate({ category: cat }); }}
               className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
                 data.category === cat
                   ? 'bg-amber-500 text-white'
@@ -96,8 +96,8 @@ export function RulePropertyForm({ data, onUpdate }: RulePropertyFormProps) {
           <input
             type="text"
             value={pathInput}
-            onChange={(e) => setPathInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && addPath()}
+            onChange={(e) => { setPathInput(e.target.value); }}
+            onKeyDown={(e) => { if (e.key === 'Enter') addPath(); }}
             placeholder="**/*.php"
             className="flex-1 rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
           />
@@ -117,7 +117,7 @@ export function RulePropertyForm({ data, onUpdate }: RulePropertyFormProps) {
               >
                 {path}
                 <button
-                  onClick={() => removePath(i)}
+                  onClick={() => { removePath(i); }}
                   className="text-amber-400 hover:text-amber-600"
                 >
                   &times;
@@ -132,7 +132,7 @@ export function RulePropertyForm({ data, onUpdate }: RulePropertyFormProps) {
         <label className="mb-1 block text-xs font-medium text-gray-500">Content</label>
         <textarea
           value={content}
-          onChange={(e) => onContentChange(e.target.value)}
+          onChange={(e) => { onContentChange(e.target.value); }}
           placeholder="Rule의 내용을 마크다운으로 작성..."
           className="min-h-[200px] flex-1 resize-y rounded-md border border-gray-300 px-3 py-2 font-mono text-xs leading-relaxed focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
         />

@@ -56,9 +56,10 @@ export function SettingsEditor({ onClose }: SettingsEditorProps) {
 
   const removeEnvVar = useCallback((key: string) => {
     setSettings((prev) => {
-      const next = { ...prev.env };
-      delete next[key];
-      return { ...prev, env: next };
+      const env = Object.fromEntries(
+        Object.entries(prev.env).filter(([k]) => k !== key),
+      );
+      return { ...prev, env };
     });
   }, []);
 
@@ -72,7 +73,7 @@ export function SettingsEditor({ onClose }: SettingsEditorProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
       <div
         className="mx-4 flex h-[80vh] w-full max-w-2xl flex-col rounded-lg bg-white shadow-xl"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => { e.stopPropagation(); }}
       >
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <div>
@@ -107,7 +108,7 @@ export function SettingsEditor({ onClose }: SettingsEditorProps) {
               {['', 'claude-sonnet-4-6', 'claude-opus-4-6', 'claude-haiku-4-5-20251001'].map((m) => (
                 <button
                   key={m}
-                  onClick={() => setSettings((prev) => ({ ...prev, model: m }))}
+                  onClick={() => { setSettings((prev) => ({ ...prev, model: m })); }}
                   className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                     settings.model === m
                       ? 'bg-gray-900 text-white'
@@ -132,11 +133,11 @@ export function SettingsEditor({ onClose }: SettingsEditorProps) {
                 <div className="flex flex-wrap gap-1">
                   {settings.permissions[mode].map((pattern, i) => (
                     <span
-                      key={pattern + i}
+                      key={pattern + String(i)}
                       className={`inline-flex items-center gap-1 rounded border px-2 py-0.5 font-mono text-xs ${PERMISSION_COLORS[mode]}`}
                     >
                       {pattern}
-                      <button onClick={() => removePermission(mode, i)} className="hover:opacity-70">&times;</button>
+                      <button onClick={() => { removePermission(mode, i); }} className="hover:opacity-70">&times;</button>
                     </span>
                   ))}
                   {settings.permissions[mode].length === 0 && (
@@ -149,7 +150,7 @@ export function SettingsEditor({ onClose }: SettingsEditorProps) {
             <div className="mt-2 flex gap-1">
               <select
                 value={newPermission.mode}
-                onChange={(e) => setNewPermission((p) => ({ ...p, mode: e.target.value as 'allow' | 'deny' | 'ask' }))}
+                onChange={(e) => { setNewPermission((p) => ({ ...p, mode: e.target.value as 'allow' | 'deny' | 'ask' })); }}
                 className="rounded-md border border-gray-300 px-2 py-1.5 text-xs"
               >
                 <option value="allow">allow</option>
@@ -159,8 +160,8 @@ export function SettingsEditor({ onClose }: SettingsEditorProps) {
               <input
                 type="text"
                 value={newPermission.pattern}
-                onChange={(e) => setNewPermission((p) => ({ ...p, pattern: e.target.value }))}
-                onKeyDown={(e) => e.key === 'Enter' && addPermission()}
+                onChange={(e) => { setNewPermission((p) => ({ ...p, pattern: e.target.value })); }}
+                onKeyDown={(e) => { if (e.key === 'Enter') addPermission(); }}
                 placeholder='Bash, Edit, "Bash(command:npm*)" ...'
                 className="flex-1 rounded-md border border-gray-300 px-2.5 py-1.5 font-mono text-xs focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
@@ -183,22 +184,22 @@ export function SettingsEditor({ onClose }: SettingsEditorProps) {
                 <span className="rounded bg-gray-100 px-2 py-0.5 font-mono text-xs text-gray-700">{key}</span>
                 <span className="text-xs text-gray-400">=</span>
                 <span className="truncate font-mono text-xs text-gray-600">{val}</span>
-                <button onClick={() => removeEnvVar(key)} className="ml-auto text-xs text-gray-400 hover:text-red-500">&times;</button>
+                <button onClick={() => { removeEnvVar(key); }} className="ml-auto text-xs text-gray-400 hover:text-red-500">&times;</button>
               </div>
             ))}
             <div className="mt-2 flex gap-1">
               <input
                 type="text"
                 value={newEnvKey}
-                onChange={(e) => setNewEnvKey(e.target.value)}
+                onChange={(e) => { setNewEnvKey(e.target.value); }}
                 placeholder="KEY"
                 className="w-28 rounded-md border border-gray-300 px-2.5 py-1.5 font-mono text-xs focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />
               <input
                 type="text"
                 value={newEnvVal}
-                onChange={(e) => setNewEnvVal(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && addEnvVar()}
+                onChange={(e) => { setNewEnvVal(e.target.value); }}
+                onKeyDown={(e) => { if (e.key === 'Enter') addEnvVar(); }}
                 placeholder="value"
                 className="flex-1 rounded-md border border-gray-300 px-2.5 py-1.5 font-mono text-xs focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               />

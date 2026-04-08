@@ -18,24 +18,25 @@ export interface TreeEntry {
 
 export function buildClaudeTree(nodes: ForgeNode[]): TreeEntry {
   const root: TreeEntry = { name: '.claude', isDir: true, children: [] };
+  const rootChildren = root.children ?? [];
 
   const agents = nodes.filter((n) => n.data.type === 'agent');
   const skills = nodes.filter((n) => n.data.type === 'skill');
   const rules = nodes.filter((n) => n.data.type === 'rule');
 
   if (agents.length > 0) {
-    const agentsDir: TreeEntry = { name: 'agents', isDir: true, children: [] };
+    const agentFiles: TreeEntry[] = [];
     for (const node of agents) {
       const data = node.data as AgentNodeData;
       const fileName = toKebabCase(data.label) + '.md';
-      agentsDir.children!.push({ name: fileName, isDir: false });
+      agentFiles.push({ name: fileName, isDir: false });
     }
-    agentsDir.children!.sort((a, b) => a.name.localeCompare(b.name));
-    root.children!.push(agentsDir);
+    agentFiles.sort((a, b) => a.name.localeCompare(b.name));
+    rootChildren.push({ name: 'agents', isDir: true, children: agentFiles });
   }
 
   if (skills.length > 0) {
-    const skillsDir: TreeEntry = { name: 'skills', isDir: true, children: [] };
+    const skillEntries: TreeEntry[] = [];
     for (const node of skills) {
       const data = node.data as SkillNodeData;
       const dirName = toKebabCase(data.label);
@@ -44,14 +45,13 @@ export function buildClaudeTree(nodes: ForgeNode[]): TreeEntry {
         isDir: true,
         children: [{ name: dirName + '.md', isDir: false }],
       };
-      skillsDir.children!.push(skillDir);
+      skillEntries.push(skillDir);
     }
-    skillsDir.children!.sort((a, b) => a.name.localeCompare(b.name));
-    root.children!.push(skillsDir);
+    skillEntries.sort((a, b) => a.name.localeCompare(b.name));
+    rootChildren.push({ name: 'skills', isDir: true, children: skillEntries });
   }
 
   if (rules.length > 0) {
-    const rulesDir: TreeEntry = { name: 'rules', isDir: true, children: [] };
     const byCategory = new Map<string, TreeEntry[]>();
 
     for (const node of rules) {
@@ -61,16 +61,20 @@ export function buildClaudeTree(nodes: ForgeNode[]): TreeEntry {
         byCategory.set(category, []);
       }
       const fileName = toKebabCase(data.label) + '.md';
-      byCategory.get(category)!.push({ name: fileName, isDir: false });
+      const items = byCategory.get(category);
+      if (items) items.push({ name: fileName, isDir: false });
     }
 
+    const ruleEntries: TreeEntry[] = [];
     const sortedCategories = [...byCategory.keys()].sort();
     for (const cat of sortedCategories) {
-      const files = byCategory.get(cat)!;
-      files.sort((a, b) => a.name.localeCompare(b.name));
-      rulesDir.children!.push({ name: cat, isDir: true, children: files });
+      const files = byCategory.get(cat);
+      if (files) {
+        files.sort((a, b) => a.name.localeCompare(b.name));
+        ruleEntries.push({ name: cat, isDir: true, children: files });
+      }
     }
-    root.children!.push(rulesDir);
+    rootChildren.push({ name: 'rules', isDir: true, children: ruleEntries });
   }
 
   return root;

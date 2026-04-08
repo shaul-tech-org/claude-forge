@@ -21,8 +21,9 @@ export function useDragAndDrop(addNode: (nodeType: ForgeNodeType, position: { x:
   const onDrop = useCallback(
     (event: DragEvent) => {
       event.preventDefault();
-      const nodeType = event.dataTransfer.getData(DRAG_DATA_KEY) as ForgeNodeType;
-      if (!nodeType) return;
+      const raw = event.dataTransfer.getData(DRAG_DATA_KEY);
+      if (!raw) return;
+      const nodeType = raw as ForgeNodeType;
 
       const position = reactFlow.screenToFlowPosition({
         x: event.clientX,

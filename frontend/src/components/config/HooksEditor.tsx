@@ -45,7 +45,7 @@ export function HooksEditor({ onClose }: HooksEditorProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
       <div
         className="mx-4 flex h-[80vh] w-full max-w-2xl flex-col rounded-lg bg-white shadow-xl"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => { e.stopPropagation(); }}
       >
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <div>
@@ -67,14 +67,14 @@ export function HooksEditor({ onClose }: HooksEditorProps) {
             <div key={i} className="mb-4 rounded-lg border border-gray-200 p-3">
               <div className="mb-2 flex items-center justify-between">
                 <span className="text-xs font-semibold text-gray-500">Hook {i + 1}</span>
-                <button onClick={() => removeHook(i)} className="text-xs text-gray-400 hover:text-red-500">삭제</button>
+                <button onClick={() => { removeHook(i); }} className="text-xs text-gray-400 hover:text-red-500">삭제</button>
               </div>
               <div className="flex flex-col gap-2">
                 <div>
                   <label className="mb-1 block text-xs text-gray-500">Event</label>
                   <select
                     value={hook.event}
-                    onChange={(e) => updateHook(i, 'event', e.target.value)}
+                    onChange={(e) => { updateHook(i, 'event', e.target.value); }}
                     className="w-full rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:border-blue-500 focus:outline-none"
                   >
                     {HOOK_EVENTS.map((ev) => (
@@ -91,7 +91,7 @@ export function HooksEditor({ onClose }: HooksEditorProps) {
                     {(['command', 'http'] as const).map((t) => (
                       <button
                         key={t}
-                        onClick={() => updateHook(i, 'type', t)}
+                        onClick={() => { updateHook(i, 'type', t); }}
                         className={`flex-1 rounded-md px-2 py-1.5 text-xs font-medium ${
                           hook.type === t ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600'
                         }`}
@@ -106,7 +106,7 @@ export function HooksEditor({ onClose }: HooksEditorProps) {
                   <input
                     placeholder="command (예: npm run lint)"
                     value={hook.command ?? ''}
-                    onChange={(e) => updateHook(i, 'command', e.target.value)}
+                    onChange={(e) => { updateHook(i, 'command', e.target.value); }}
                     className="rounded-md border border-gray-300 px-2.5 py-1.5 font-mono text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 )}
@@ -115,7 +115,7 @@ export function HooksEditor({ onClose }: HooksEditorProps) {
                   <input
                     placeholder="URL (예: http://localhost:3000/hook)"
                     value={hook.url ?? ''}
-                    onChange={(e) => updateHook(i, 'url', e.target.value)}
+                    onChange={(e) => { updateHook(i, 'url', e.target.value); }}
                     className="rounded-md border border-gray-300 px-2.5 py-1.5 font-mono text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                 )}

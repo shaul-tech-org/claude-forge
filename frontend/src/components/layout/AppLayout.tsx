@@ -38,27 +38,27 @@ export function AppLayout() {
       <CanvasProvider>
         <div className="flex h-screen w-screen overflow-hidden">
           <Toolbar
-            onOpenRecommend={() => setShowRecommend(true)}
-            onOpenWizard={() => setShowWizard(true)}
-            onOpenClaudeMd={() => setShowClaudeMd(true)}
-            onOpenSettings={() => setShowSettings(true)}
-            onOpenMcp={() => setShowMcp(true)}
-            onOpenHooks={() => setShowHooks(true)}
+            onOpenRecommend={() => { setShowRecommend(true); }}
+            onOpenWizard={() => { setShowWizard(true); }}
+            onOpenClaudeMd={() => { setShowClaudeMd(true); }}
+            onOpenSettings={() => { setShowSettings(true); }}
+            onOpenMcp={() => { setShowMcp(true); }}
+            onOpenHooks={() => { setShowHooks(true); }}
           />
           <main className="flex-1">
             <Canvas />
           </main>
           {showRecommend ? (
-            <RecommendPanel onClose={() => setShowRecommend(false)} />
+            <RecommendPanel onClose={() => { setShowRecommend(false); }} />
           ) : (
             <PropertyPanel />
           )}
         </div>
         {showWizard && <OnboardingWizard onClose={handleCloseWizard} />}
-        {showClaudeMd && <ClaudeMdEditor onClose={() => setShowClaudeMd(false)} />}
-        {showSettings && <SettingsEditor onClose={() => setShowSettings(false)} />}
-        {showMcp && <McpEditor onClose={() => setShowMcp(false)} />}
-        {showHooks && <HooksEditor onClose={() => setShowHooks(false)} />}
+        {showClaudeMd && <ClaudeMdEditor onClose={() => { setShowClaudeMd(false); }} />}
+        {showSettings && <SettingsEditor onClose={() => { setShowSettings(false); }} />}
+        {showMcp && <McpEditor onClose={() => { setShowMcp(false); }} />}
+        {showHooks && <HooksEditor onClose={() => { setShowHooks(false); }} />}
       </CanvasProvider>
     </ReactFlowProvider>
   );

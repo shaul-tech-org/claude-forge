@@ -25,7 +25,7 @@ export function useRecommendations(): UseRecommendationsReturn {
   useEffect(() => {
     fetchStacks()
       .then(setStacks)
-      .catch(() => setError('Failed to load stacks'));
+      .catch(() => { setError('Failed to load stacks'); });
   }, []);
 
   const toggleStack = useCallback((id: string) => {
@@ -46,11 +46,11 @@ export function useRecommendations(): UseRecommendationsReturn {
     const timer = setTimeout(() => {
       fetchRecommendations(selectedStackIds)
         .then(setRecommendations)
-        .catch(() => setError('Failed to load recommendations'))
-        .finally(() => setLoading(false));
+        .catch(() => { setError('Failed to load recommendations'); })
+        .finally(() => { setLoading(false); });
     }, 300);
 
-    return () => clearTimeout(timer);
+    return () => { clearTimeout(timer); };
   }, [selectedStackIds]);
 
   return { stacks, selectedStackIds, toggleStack, recommendations, loading, error };

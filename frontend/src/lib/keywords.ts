@@ -39,10 +39,10 @@ export function extractKeywords(data: ForgeNodeData): KeywordMatch[] {
   const text = [
     data.label,
     data.description,
-    'instructions' in data ? String(data.instructions ?? '') : '',
-    'content' in data ? String(data.content ?? '') : '',
-    'trigger' in data ? String(data.trigger ?? '') : '',
-    'category' in data ? String(data.category ?? '') : '',
+    'instructions' in data && typeof data.instructions === 'string' ? data.instructions : '',
+    'content' in data && typeof data.content === 'string' ? data.content : '',
+    'trigger' in data && typeof data.trigger === 'string' ? data.trigger : '',
+    'category' in data && typeof data.category === 'string' ? data.category : '',
     ...(('paths' in data && Array.isArray(data.paths)) ? data.paths.map(String) : []),
   ].join(' ');
 

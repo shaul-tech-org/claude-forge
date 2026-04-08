@@ -31,8 +31,8 @@ export async function fetchStacks(): Promise<TechStack[]> {
   const resp = await fetch(`${API_BASE}/stacks`, {
     headers: { Accept: 'application/json' },
   });
-  const data = await resp.json();
-  return data.data ?? data;
+  const data: { data?: TechStack[] } = await resp.json() as { data?: TechStack[] };
+  return data.data ?? (data as unknown as TechStack[]);
 }
 
 export async function fetchRecommendations(stackIds: string[]): Promise<RecommendationResult> {
@@ -41,6 +41,6 @@ export async function fetchRecommendations(stackIds: string[]): Promise<Recommen
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({ stacks: stackIds }),
   });
-  const data = await resp.json();
-  return data.data ?? data;
+  const data: { data?: RecommendationResult } = await resp.json() as { data?: RecommendationResult };
+  return data.data ?? (data as unknown as RecommendationResult);
 }

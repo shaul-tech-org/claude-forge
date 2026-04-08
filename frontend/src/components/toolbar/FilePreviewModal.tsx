@@ -12,20 +12,20 @@ export function FilePreviewModal({ path, content, onClose }: FilePreviewModalPro
   const handleCopy = useCallback(async () => {
     await navigator.clipboard.writeText(content);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => { setCopied(false); }, 2000);
   }, [content]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
       <div
         className="mx-4 flex max-h-[80vh] w-full max-w-2xl flex-col rounded-lg bg-white shadow-xl"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => { e.stopPropagation(); }}
       >
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <code className="text-sm font-medium text-gray-700">{path}</code>
           <div className="flex items-center gap-2">
             <button
-              onClick={handleCopy}
+              onClick={() => { void handleCopy(); }}
               className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors ${
                 copied
                   ? 'bg-green-500 text-white'

@@ -4,7 +4,6 @@ import { AgentPropertyForm } from './AgentPropertyForm';
 import { SkillPropertyForm } from './SkillPropertyForm';
 import { RulePropertyForm } from './RulePropertyForm';
 import { extractKeywords } from '../../lib/keywords';
-import type { AgentNodeData, SkillNodeData, RuleNodeData } from '../../types/node';
 
 const NODE_TYPE_META = {
   agent: { icon: '🤖', label: 'Agent', color: 'bg-blue-500' },
@@ -38,7 +37,7 @@ export function PropertyPanel() {
           <span className="text-sm font-semibold text-white">{meta.label}</span>
         </div>
         <button
-          onClick={() => selectNode(null)}
+          onClick={() => { selectNode(null); }}
           className="rounded p-0.5 text-white/80 hover:bg-white/20 hover:text-white"
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,19 +49,19 @@ export function PropertyPanel() {
       <div className="flex-1 overflow-y-auto p-4">
         {nodeType === 'agent' && (
           <AgentPropertyForm
-            data={selectedNode.data as AgentNodeData}
+            data={selectedNode.data}
             onUpdate={handleUpdate}
           />
         )}
         {nodeType === 'skill' && (
           <SkillPropertyForm
-            data={selectedNode.data as SkillNodeData}
+            data={selectedNode.data}
             onUpdate={handleUpdate}
           />
         )}
         {nodeType === 'rule' && (
           <RulePropertyForm
-            data={selectedNode.data as RuleNodeData}
+            data={selectedNode.data}
             onUpdate={handleUpdate}
           />
         )}
@@ -71,7 +70,7 @@ export function PropertyPanel() {
       {keywords.length > 0 && (
         <div className="border-t border-gray-200">
           <button
-            onClick={() => setKeywordsOpen(!keywordsOpen)}
+            onClick={() => { setKeywordsOpen(!keywordsOpen); }}
             className="flex w-full items-center justify-between px-4 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400 hover:bg-gray-50"
           >
             <span>Keywords ({keywords.length})</span>

@@ -38,7 +38,7 @@ export function AgentPropertyForm({ data, onUpdate }: AgentPropertyFormProps) {
         <input
           type="text"
           value={data.label}
-          onChange={(e) => onUpdate({ label: e.target.value })}
+          onChange={(e) => { onUpdate({ label: e.target.value }); }}
           className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
       </div>
@@ -48,7 +48,7 @@ export function AgentPropertyForm({ data, onUpdate }: AgentPropertyFormProps) {
         <input
           type="text"
           value={data.description}
-          onChange={(e) => onUpdate({ description: e.target.value })}
+          onChange={(e) => { onUpdate({ description: e.target.value }); }}
           placeholder="Agent의 역할을 간단히 설명"
           className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
@@ -60,7 +60,7 @@ export function AgentPropertyForm({ data, onUpdate }: AgentPropertyFormProps) {
           {MODELS.map((m) => (
             <button
               key={m.value}
-              onClick={() => onUpdate({ model: m.value })}
+              onClick={() => { onUpdate({ model: m.value }); }}
               className={`flex-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors ${
                 data.model === m.value
                   ? `${m.color} text-white`
@@ -77,7 +77,7 @@ export function AgentPropertyForm({ data, onUpdate }: AgentPropertyFormProps) {
         <label className="mb-1 block text-xs font-medium text-gray-500">Instructions</label>
         <textarea
           value={instructions}
-          onChange={(e) => onInstructionsChange(e.target.value)}
+          onChange={(e) => { onInstructionsChange(e.target.value); }}
           placeholder="Agent의 역할, 규칙, 행동 지침을 마크다운으로 작성..."
           className="min-h-[200px] flex-1 resize-y rounded-md border border-gray-300 px-3 py-2 font-mono text-xs leading-relaxed focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />

@@ -34,7 +34,7 @@ export function SkillPropertyForm({ data, onUpdate }: SkillPropertyFormProps) {
         <input
           type="text"
           value={data.label}
-          onChange={(e) => onUpdate({ label: e.target.value })}
+          onChange={(e) => { onUpdate({ label: e.target.value }); }}
           className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
         />
       </div>
@@ -44,7 +44,7 @@ export function SkillPropertyForm({ data, onUpdate }: SkillPropertyFormProps) {
         <input
           type="text"
           value={data.description}
-          onChange={(e) => onUpdate({ description: e.target.value })}
+          onChange={(e) => { onUpdate({ description: e.target.value }); }}
           placeholder="Skill의 역할을 간단히 설명"
           className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
         />
@@ -54,7 +54,7 @@ export function SkillPropertyForm({ data, onUpdate }: SkillPropertyFormProps) {
         <label className="mb-1 block text-xs font-medium text-gray-500">User Invocable</label>
         <div className="flex gap-1">
           <button
-            onClick={() => onUpdate({ userInvocable: true })}
+            onClick={() => { onUpdate({ userInvocable: true }); }}
             className={`flex-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors ${
               userInvocable
                 ? 'bg-green-500 text-white'
@@ -64,7 +64,7 @@ export function SkillPropertyForm({ data, onUpdate }: SkillPropertyFormProps) {
             Yes
           </button>
           <button
-            onClick={() => onUpdate({ userInvocable: false })}
+            onClick={() => { onUpdate({ userInvocable: false }); }}
             className={`flex-1 rounded-md px-2 py-1.5 text-xs font-medium transition-colors ${
               !userInvocable
                 ? 'bg-gray-500 text-white'
@@ -85,7 +85,7 @@ export function SkillPropertyForm({ data, onUpdate }: SkillPropertyFormProps) {
           <input
             type="text"
             value={data.args ?? ''}
-            onChange={(e) => onUpdate({ args: e.target.value })}
+            onChange={(e) => { onUpdate({ args: e.target.value }); }}
             placeholder='인자 설명 (예: FORGE-{번호})'
             className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
           />
@@ -97,7 +97,7 @@ export function SkillPropertyForm({ data, onUpdate }: SkillPropertyFormProps) {
         <input
           type="text"
           value={data.trigger}
-          onChange={(e) => onUpdate({ trigger: e.target.value })}
+          onChange={(e) => { onUpdate({ trigger: e.target.value }); }}
           placeholder="자동 실행 조건"
           className="w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
         />
@@ -107,7 +107,7 @@ export function SkillPropertyForm({ data, onUpdate }: SkillPropertyFormProps) {
         <label className="mb-1 block text-xs font-medium text-gray-500">Instructions</label>
         <textarea
           value={instructions}
-          onChange={(e) => onInstructionsChange(e.target.value)}
+          onChange={(e) => { onInstructionsChange(e.target.value); }}
           placeholder="Skill의 실행 절차를 마크다운으로 작성..."
           className="min-h-[200px] flex-1 resize-y rounded-md border border-gray-300 px-3 py-2 font-mono text-xs leading-relaxed focus:border-green-500 focus:outline-none focus:ring-1 focus:ring-green-500"
         />

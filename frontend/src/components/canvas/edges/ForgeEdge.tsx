@@ -49,7 +49,7 @@ export function ForgeEdgeComponent({
         <div
           style={{
             position: 'absolute',
-            transform: `translate(-50%, -50%) translate(${labelX}px, ${labelY}px)`,
+            transform: `translate(-50%, -50%) translate(${String(labelX)}px, ${String(labelY)}px)`,
             pointerEvents: 'all',
           }}
           className="rounded bg-white px-1.5 py-0.5 text-[10px] font-medium shadow-sm"

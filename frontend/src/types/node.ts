@@ -9,8 +9,8 @@ export type AgentNodeData = {
   type: 'agent';
   label: string;
   description: string;
-  model: AgentModel;
-  instructions: string;
+  model: AgentModel | undefined;
+  instructions: string | undefined;
   [key: string]: unknown;
 };
 
@@ -19,9 +19,9 @@ export type SkillNodeData = {
   label: string;
   description: string;
   trigger: string;
-  userInvocable: boolean;
-  args: string;
-  instructions: string;
+  userInvocable: boolean | undefined;
+  args: string | undefined;
+  instructions: string | undefined;
   [key: string]: unknown;
 };
 
@@ -30,8 +30,8 @@ export type RuleNodeData = {
   label: string;
   description: string;
   category: string;
-  paths: string[];
-  content: string;
+  paths: string[] | undefined;
+  content: string | undefined;
   [key: string]: unknown;
 };
 

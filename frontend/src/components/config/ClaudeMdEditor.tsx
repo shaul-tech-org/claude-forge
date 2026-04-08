@@ -51,7 +51,7 @@ export function ClaudeMdEditor({ onClose }: ClaudeMdEditorProps) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
       <div
         className="mx-4 flex h-[80vh] w-full max-w-3xl flex-col rounded-lg bg-white shadow-xl"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => { e.stopPropagation(); }}
       >
         <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <div>
@@ -84,7 +84,7 @@ export function ClaudeMdEditor({ onClose }: ClaudeMdEditorProps) {
         <div className="flex-1 p-4">
           <textarea
             value={content}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => { setContent(e.target.value); }}
             placeholder="# My Project&#10;&#10;## Build & Test&#10;..."
             className="h-full w-full resize-none rounded-md border border-gray-300 px-4 py-3 font-mono text-sm leading-relaxed focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />

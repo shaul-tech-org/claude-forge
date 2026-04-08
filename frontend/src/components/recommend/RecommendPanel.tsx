@@ -140,7 +140,7 @@ export function RecommendPanel({ onClose }: RecommendPanelProps) {
                     return (
                       <button
                         key={stack.id}
-                        onClick={() => toggleStack(stack.id)}
+                        onClick={() => { toggleStack(stack.id); }}
                         className={`rounded-md border px-2 py-1 text-xs font-medium transition-all ${
                           selected
                             ? colorClass + ' border-current'
@@ -189,7 +189,7 @@ export function RecommendPanel({ onClose }: RecommendPanelProps) {
                         <p className="truncate text-[10px] text-gray-500">{rule.category}</p>
                       </div>
                       <button
-                        onClick={() => addRuleToCanvas(rule)}
+                        onClick={() => { addRuleToCanvas(rule); }}
                         className="ml-2 shrink-0 rounded bg-amber-500 px-2 py-0.5 text-[10px] font-medium text-white hover:bg-amber-600"
                       >
                         Add
@@ -214,7 +214,7 @@ export function RecommendPanel({ onClose }: RecommendPanelProps) {
                         <p className="truncate text-[10px] text-gray-500">{skill.description}</p>
                       </div>
                       <button
-                        onClick={() => addSkillToCanvas(skill)}
+                        onClick={() => { addSkillToCanvas(skill); }}
                         className="ml-2 shrink-0 rounded bg-green-500 px-2 py-0.5 text-[10px] font-medium text-white hover:bg-green-600"
                       >
                         Add

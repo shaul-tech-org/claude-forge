@@ -246,7 +246,7 @@ export function OnboardingWizard({ onClose }: OnboardingWizardProps) {
                         return (
                           <button
                             key={stack.id}
-                            onClick={() => toggleStack(stack.id)}
+                            onClick={() => { toggleStack(stack.id); }}
                             className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition-all ${
                               selected
                                 ? (CATEGORY_COLORS[cat] ?? 'bg-gray-100 text-gray-700') + ' border-current'
@@ -278,7 +278,7 @@ export function OnboardingWizard({ onClose }: OnboardingWizardProps) {
                     <span className="text-xs font-semibold text-blue-500">Agent {i + 1}</span>
                     {agentDrafts.length > 1 && (
                       <button
-                        onClick={() => removeAgentDraft(draft.id)}
+                        onClick={() => { removeAgentDraft(draft.id); }}
                         className="text-xs text-gray-400 hover:text-red-500"
                       >
                         삭제
@@ -289,20 +289,20 @@ export function OnboardingWizard({ onClose }: OnboardingWizardProps) {
                     <input
                       placeholder="이름 (예: coordinator)"
                       value={draft.name}
-                      onChange={(e) => updateAgentDraft(draft.id, 'name', e.target.value)}
+                      onChange={(e) => { updateAgentDraft(draft.id, 'name', e.target.value); }}
                       className="rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                     <input
                       placeholder="설명 (예: 요청 분석 + 라우팅)"
                       value={draft.description}
-                      onChange={(e) => updateAgentDraft(draft.id, 'description', e.target.value)}
+                      onChange={(e) => { updateAgentDraft(draft.id, 'description', e.target.value); }}
                       className="rounded-md border border-gray-300 px-2.5 py-1.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                     <div className="flex gap-1">
                       {(['opus', 'sonnet', 'haiku'] as const).map((m) => (
                         <button
                           key={m}
-                          onClick={() => updateAgentDraft(draft.id, 'model', m)}
+                          onClick={() => { updateAgentDraft(draft.id, 'model', m); }}
                           className={`flex-1 rounded-md px-2 py-1 text-xs font-medium ${
                             draft.model === m
                               ? m === 'opus' ? 'bg-purple-500 text-white'
@@ -374,7 +374,7 @@ export function OnboardingWizard({ onClose }: OnboardingWizardProps) {
                 {nodes.filter(n => n.type === 'skill').length} Skills
               </div>
               <button
-                onClick={handleExport}
+                onClick={() => { void handleExport(); }}
                 disabled={nodes.length === 0 || exporting}
                 className="mt-2 rounded-lg bg-gray-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-gray-800 disabled:bg-gray-300"
               >

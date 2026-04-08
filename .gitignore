@@ -6,3 +6,5 @@ dist/
 *.sqlite
 .DS_Store
 Thumbs.db
+*.tsbuildinfo
+frontend/src/**/*.js
