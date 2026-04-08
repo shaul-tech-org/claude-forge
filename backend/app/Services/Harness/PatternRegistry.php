@@ -50,6 +50,12 @@ final class PatternRegistry
         $this->register($this->producerReviewer());
         $this->register($this->supervisor());
         $this->register($this->threeAgent());
+
+        // Domain-specific patterns
+        $this->register($this->laravelHexagonal());
+        $this->register($this->reactNextjs());
+        $this->register($this->pythonMl());
+        $this->register($this->goMicroservice());
     }
 
     private function register(Pattern $pattern): void
@@ -313,6 +319,149 @@ final class PatternRegistry
             ],
             recommendedAgents: ['planner', 'generator', 'evaluator'],
             recommendedSkills: ['/plan', '/test', '/evaluate'],
+        );
+    }
+
+    private function laravelHexagonal(): Pattern
+    {
+        return new Pattern(
+            id: 'laravel-hexagonal',
+            name: 'Laravel Hexagonal',
+            category: 'domain',
+            description: 'Laravel + Hexagonal Architecture 패턴. Service/Repository 분리, Eloquent 최적화, Pest 테스트 포함.',
+            teamSize: '2-5',
+            complexity: 'medium',
+            expectedScores: [
+                'context' => 85,
+                'verification' => 80,
+                'state' => 60,
+                'tools' => 75,
+                'human' => 65,
+                'lifecycle' => 70,
+            ],
+            diagram: [
+                'nodes' => [
+                    ['id' => 'coordinator', 'type' => 'agent', 'position' => ['x' => 300, 'y' => 50], 'data' => ['label' => 'Coordinator', 'description' => 'Laravel 작업 라우팅', 'model' => 'sonnet']],
+                    ['id' => 'be-dev', 'type' => 'agent', 'position' => ['x' => 150, 'y' => 200], 'data' => ['label' => 'BE Developer', 'description' => 'PHP/Laravel 구현', 'model' => 'sonnet']],
+                    ['id' => 'tester', 'type' => 'agent', 'position' => ['x' => 450, 'y' => 200], 'data' => ['label' => 'Tester', 'description' => 'Pest 테스트 작성', 'model' => 'sonnet']],
+                    ['id' => 'laravel-rules', 'type' => 'rule', 'position' => ['x' => 150, 'y' => 370], 'data' => ['label' => 'Laravel Rules', 'description' => 'Eloquent, Migration, Service 패턴']],
+                    ['id' => 'php-rules', 'type' => 'rule', 'position' => ['x' => 450, 'y' => 370], 'data' => ['label' => 'PHP Rules', 'description' => 'PSR-12, strict_types, 보안']],
+                ],
+                'edges' => [
+                    ['id' => 'e1', 'source' => 'coordinator', 'target' => 'be-dev', 'type' => 'delegation'],
+                    ['id' => 'e2', 'source' => 'coordinator', 'target' => 'tester', 'type' => 'delegation'],
+                    ['id' => 'e3', 'source' => 'be-dev', 'target' => 'laravel-rules', 'type' => 'applies'],
+                    ['id' => 'e4', 'source' => 'tester', 'target' => 'php-rules', 'type' => 'applies'],
+                ],
+            ],
+            recommendedAgents: ['coordinator', 'be-developer', 'tester'],
+            recommendedSkills: ['/be', '/test', '/migrate'],
+        );
+    }
+
+    private function reactNextjs(): Pattern
+    {
+        return new Pattern(
+            id: 'react-nextjs',
+            name: 'React + Next.js',
+            category: 'domain',
+            description: 'React 19 + Next.js 풀스택 패턴. TypeScript strict, Tailwind CSS, Vitest 테스트.',
+            teamSize: '2-4',
+            complexity: 'medium',
+            expectedScores: [
+                'context' => 80,
+                'verification' => 75,
+                'state' => 55,
+                'tools' => 80,
+                'human' => 60,
+                'lifecycle' => 65,
+            ],
+            diagram: [
+                'nodes' => [
+                    ['id' => 'coordinator', 'type' => 'agent', 'position' => ['x' => 300, 'y' => 50], 'data' => ['label' => 'Coordinator', 'description' => 'React/Next.js 작업 라우팅', 'model' => 'sonnet']],
+                    ['id' => 'fe-dev', 'type' => 'agent', 'position' => ['x' => 150, 'y' => 200], 'data' => ['label' => 'FE Developer', 'description' => 'React/TypeScript 구현', 'model' => 'sonnet']],
+                    ['id' => 'api-dev', 'type' => 'agent', 'position' => ['x' => 450, 'y' => 200], 'data' => ['label' => 'API Developer', 'description' => 'Next.js API Route 구현', 'model' => 'sonnet']],
+                    ['id' => 'ts-rules', 'type' => 'rule', 'position' => ['x' => 150, 'y' => 370], 'data' => ['label' => 'TypeScript Rules', 'description' => 'strict mode, no any']],
+                    ['id' => 'react-rules', 'type' => 'rule', 'position' => ['x' => 450, 'y' => 370], 'data' => ['label' => 'React Rules', 'description' => 'Hooks, 컴포넌트 패턴']],
+                ],
+                'edges' => [
+                    ['id' => 'e1', 'source' => 'coordinator', 'target' => 'fe-dev', 'type' => 'delegation'],
+                    ['id' => 'e2', 'source' => 'coordinator', 'target' => 'api-dev', 'type' => 'delegation'],
+                    ['id' => 'e3', 'source' => 'fe-dev', 'target' => 'ts-rules', 'type' => 'applies'],
+                    ['id' => 'e4', 'source' => 'fe-dev', 'target' => 'react-rules', 'type' => 'applies'],
+                ],
+            ],
+            recommendedAgents: ['coordinator', 'fe-developer', 'api-developer'],
+            recommendedSkills: ['/fe', '/test', '/build'],
+        );
+    }
+
+    private function pythonMl(): Pattern
+    {
+        return new Pattern(
+            id: 'python-ml',
+            name: 'Python ML',
+            category: 'domain',
+            description: 'Python 머신러닝/데이터 사이언스 패턴. Jupyter, pytest, 데이터 파이프라인.',
+            teamSize: '1-3',
+            complexity: 'medium',
+            expectedScores: [
+                'context' => 75,
+                'verification' => 70,
+                'state' => 70,
+                'tools' => 75,
+                'human' => 55,
+                'lifecycle' => 50,
+            ],
+            diagram: [
+                'nodes' => [
+                    ['id' => 'data-eng', 'type' => 'agent', 'position' => ['x' => 150, 'y' => 100], 'data' => ['label' => 'Data Engineer', 'description' => '데이터 전처리 및 파이프라인', 'model' => 'sonnet']],
+                    ['id' => 'ml-eng', 'type' => 'agent', 'position' => ['x' => 450, 'y' => 100], 'data' => ['label' => 'ML Engineer', 'description' => '모델 학습 및 평가', 'model' => 'sonnet']],
+                    ['id' => 'python-rules', 'type' => 'rule', 'position' => ['x' => 300, 'y' => 280], 'data' => ['label' => 'Python Rules', 'description' => 'PEP8, type hints, docstrings']],
+                ],
+                'edges' => [
+                    ['id' => 'e1', 'source' => 'data-eng', 'target' => 'ml-eng', 'type' => 'delegation'],
+                    ['id' => 'e2', 'source' => 'data-eng', 'target' => 'python-rules', 'type' => 'applies'],
+                    ['id' => 'e3', 'source' => 'ml-eng', 'target' => 'python-rules', 'type' => 'applies'],
+                ],
+            ],
+            recommendedAgents: ['data-engineer', 'ml-engineer'],
+            recommendedSkills: ['/train', '/evaluate', '/notebook'],
+        );
+    }
+
+    private function goMicroservice(): Pattern
+    {
+        return new Pattern(
+            id: 'go-microservice',
+            name: 'Go Microservice',
+            category: 'domain',
+            description: 'Go 마이크로서비스 패턴. gRPC/REST API, Docker, 테스트 커버리지.',
+            teamSize: '2-5',
+            complexity: 'medium',
+            expectedScores: [
+                'context' => 80,
+                'verification' => 85,
+                'state' => 55,
+                'tools' => 80,
+                'human' => 70,
+                'lifecycle' => 75,
+            ],
+            diagram: [
+                'nodes' => [
+                    ['id' => 'coordinator', 'type' => 'agent', 'position' => ['x' => 300, 'y' => 50], 'data' => ['label' => 'Coordinator', 'description' => 'Go 서비스 작업 라우팅', 'model' => 'sonnet']],
+                    ['id' => 'go-dev', 'type' => 'agent', 'position' => ['x' => 150, 'y' => 200], 'data' => ['label' => 'Go Developer', 'description' => 'Go 서비스 구현', 'model' => 'sonnet']],
+                    ['id' => 'infra', 'type' => 'agent', 'position' => ['x' => 450, 'y' => 200], 'data' => ['label' => 'Infra Engineer', 'description' => 'Docker, K8s, CI/CD', 'model' => 'sonnet']],
+                    ['id' => 'go-rules', 'type' => 'rule', 'position' => ['x' => 300, 'y' => 370], 'data' => ['label' => 'Go Rules', 'description' => 'Go idioms, error handling, testing']],
+                ],
+                'edges' => [
+                    ['id' => 'e1', 'source' => 'coordinator', 'target' => 'go-dev', 'type' => 'delegation'],
+                    ['id' => 'e2', 'source' => 'coordinator', 'target' => 'infra', 'type' => 'delegation'],
+                    ['id' => 'e3', 'source' => 'go-dev', 'target' => 'go-rules', 'type' => 'applies'],
+                ],
+            ],
+            recommendedAgents: ['coordinator', 'go-developer', 'infra-engineer'],
+            recommendedSkills: ['/build', '/test', '/deploy'],
         );
     }
 }
