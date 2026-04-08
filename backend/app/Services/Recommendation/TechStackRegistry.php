@@ -24,7 +24,7 @@ final class TechStackRegistry
     public function allStacks(): array
     {
         return array_map(
-            static fn(array $entry): TechStack => $entry['stack'],
+            static fn (array $entry): TechStack => $entry['stack'],
             array_values($this->registry),
         );
     }

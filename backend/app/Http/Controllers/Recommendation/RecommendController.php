@@ -13,7 +13,8 @@ class RecommendController extends Controller
 {
     public function __construct(
         private readonly RecommendationEngine $engine,
-    ) {}
+    ) {
+    }
 
     public function __invoke(RecommendRequest $request): JsonResponse
     {

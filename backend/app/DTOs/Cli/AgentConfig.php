@@ -11,7 +11,8 @@ readonly class AgentConfig
         public string $description = '',
         public string $model = 'sonnet',
         public string $instructions = '',
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

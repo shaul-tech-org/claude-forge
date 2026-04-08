@@ -11,7 +11,8 @@ readonly class SkillTemplate
         public string $description,
         public bool $userInvocable,
         public string $instructions,
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

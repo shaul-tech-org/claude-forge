@@ -14,7 +14,8 @@ class CliApplyController extends Controller
 {
     public function __construct(
         private readonly ClaudeConfigWriter $writer,
-    ) {}
+    ) {
+    }
 
     public function __invoke(ApplyRequest $request): JsonResponse
     {

@@ -15,7 +15,8 @@ readonly class ApplyResult
         public array $created = [],
         public array $updated = [],
         public array $skipped = [],
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {

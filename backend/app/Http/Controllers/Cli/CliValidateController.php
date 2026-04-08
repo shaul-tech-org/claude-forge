@@ -14,7 +14,8 @@ class CliValidateController extends Controller
 {
     public function __construct(
         private readonly ClaudeConfigValidator $validator,
-    ) {}
+    ) {
+    }
 
     public function __invoke(ValidateRequest $request): JsonResponse
     {

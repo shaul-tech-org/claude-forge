@@ -14,7 +14,8 @@ readonly class RuleConfig
         public string $category = '',
         public array $paths = [],
         public string $content = '',
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

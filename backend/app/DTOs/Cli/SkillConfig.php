@@ -13,7 +13,8 @@ readonly class SkillConfig
         public string $args = '',
         public string $trigger = '',
         public string $instructions = '',
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

@@ -7,7 +7,7 @@ namespace App\DTOs\Recommendation;
 readonly class RecommendationResult
 {
     /**
-     * @param TechStack[]    $stacks
+     * @param TechStack[] $stacks
      * @param RuleTemplate[] $rules
      * @param SkillTemplate[] $skills
      */
@@ -15,21 +15,22 @@ readonly class RecommendationResult
         public array $stacks = [],
         public array $rules = [],
         public array $skills = [],
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {
         return [
             'stacks' => array_map(
-                static fn(TechStack $s): array => $s->toArray(),
+                static fn (TechStack $s): array => $s->toArray(),
                 $this->stacks,
             ),
             'rules' => array_map(
-                static fn(RuleTemplate $r): array => $r->toArray(),
+                static fn (RuleTemplate $r): array => $r->toArray(),
                 $this->rules,
             ),
             'skills' => array_map(
-                static fn(SkillTemplate $s): array => $s->toArray(),
+                static fn (SkillTemplate $s): array => $s->toArray(),
                 $this->skills,
             ),
         ];

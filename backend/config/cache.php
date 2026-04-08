@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Str;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Cache Store
@@ -33,7 +34,6 @@ return [
     */
 
     'stores' => [
-
         'array' => [
             'driver' => 'array',
             'serialize' => false,
@@ -98,7 +98,6 @@ return [
                 'array',
             ],
         ],
-
     ],
 
     /*
@@ -126,5 +125,4 @@ return [
     */
 
     'serializable_classes' => false,
-
 ];

@@ -8,16 +8,21 @@ use App\DTOs\Cli\AgentConfig;
 use App\DTOs\Cli\RuleConfig;
 use App\DTOs\Cli\ScanResult;
 use App\DTOs\Cli\SkillConfig;
+use FilesystemIterator;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use SplFileInfo;
 
 class ClaudeConfigScanner
 {
     public function __construct(
         private readonly FrontmatterParser $parser,
-    ) {}
+    ) {
+    }
 
     public function scan(string $projectPath): ScanResult
     {
-        $basePath = rtrim($projectPath, '/') . '/.claude';
+        $basePath = rtrim($projectPath, '/').'/.claude';
 
         return new ScanResult(
             agents: $this->scanAgents($basePath),
@@ -32,7 +37,7 @@ class ClaudeConfigScanner
      */
     private function scanAgents(string $basePath): array
     {
-        $agentsDir = $basePath . '/agents';
+        $agentsDir = $basePath.'/agents';
         if (! is_dir($agentsDir)) {
             return [];
         }
@@ -58,7 +63,7 @@ class ClaudeConfigScanner
      */
     private function scanSkills(string $basePath): array
     {
-        $skillsDir = $basePath . '/skills';
+        $skillsDir = $basePath.'/skills';
         if (! is_dir($skillsDir)) {
             return [];
         }
@@ -86,7 +91,7 @@ class ClaudeConfigScanner
      */
     private function scanRules(string $basePath): array
     {
-        $rulesDir = $basePath . '/rules';
+        $rulesDir = $basePath.'/rules';
         if (! is_dir($rulesDir)) {
             return [];
         }
@@ -97,7 +102,7 @@ class ClaudeConfigScanner
             $meta = $parsed['meta'];
 
             // Derive category from subdirectory path relative to rules/
-            $relativePath = str_replace($rulesDir . '/', '', $file);
+            $relativePath = str_replace($rulesDir.'/', '', $file);
             $category = dirname($relativePath);
             if ($category === '.') {
                 $category = '';
@@ -119,7 +124,7 @@ class ClaudeConfigScanner
      */
     private function globMarkdownFiles(string $dir): array
     {
-        $pattern = $dir . '/*.md';
+        $pattern = $dir.'/*.md';
         $files = glob($pattern);
 
         return $files !== false ? $files : [];
@@ -130,13 +135,13 @@ class ClaudeConfigScanner
      */
     private function globMarkdownFilesRecursive(string $dir): array
     {
-        $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($dir, \FilesystemIterator::SKIP_DOTS),
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
         );
 
         $files = [];
         foreach ($iterator as $file) {
-            /** @var \SplFileInfo $file */
+            /** @var SplFileInfo $file */
             if ($file->isFile() && strtolower($file->getExtension()) === 'md') {
                 $files[] = $file->getPathname();
             }

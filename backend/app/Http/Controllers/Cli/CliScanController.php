@@ -13,7 +13,8 @@ class CliScanController extends Controller
 {
     public function __construct(
         private readonly ClaudeConfigScanner $scanner,
-    ) {}
+    ) {
+    }
 
     public function __invoke(ScanRequest $request): JsonResponse
     {

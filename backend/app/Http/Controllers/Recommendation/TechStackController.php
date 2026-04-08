@@ -12,12 +12,13 @@ class TechStackController extends Controller
 {
     public function __construct(
         private readonly TechStackRegistry $registry,
-    ) {}
+    ) {
+    }
 
     public function __invoke(): JsonResponse
     {
         $stacks = array_map(
-            static fn($stack): array => $stack->toArray(),
+            static fn ($stack): array => $stack->toArray(),
             $this->registry->allStacks(),
         );
 

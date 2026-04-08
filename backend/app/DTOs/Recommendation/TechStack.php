@@ -14,7 +14,8 @@ readonly class TechStack
         public string $name,
         public string $category,
         public array $implies = [],
-    ) {}
+    ) {
+    }
 
     public static function fromArray(array $data): self
     {

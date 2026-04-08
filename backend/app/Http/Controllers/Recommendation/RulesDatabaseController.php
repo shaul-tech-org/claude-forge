@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 class RulesDatabaseController extends Controller
 {
     /**
-     * GET /api/v1/rules-db
+     * GET /api/v1/rules-db.
      *
      * List all available rules in the database, grouped by stack ID.
      */
@@ -22,7 +22,7 @@ class RulesDatabaseController extends Controller
 
         foreach ($all as $stackId => $rules) {
             $data[$stackId] = array_map(
-                static fn($rule): array => $rule->toArray(),
+                static fn ($rule): array => $rule->toArray(),
                 $rules,
             );
         }
@@ -37,7 +37,7 @@ class RulesDatabaseController extends Controller
     }
 
     /**
-     * GET /api/v1/rules-db/{stackId}
+     * GET /api/v1/rules-db/{stackId}.
      *
      * Get detailed rules for a specific stack.
      */
@@ -47,7 +47,7 @@ class RulesDatabaseController extends Controller
 
         if ($rules === []) {
             return response()->json([
-                'error' => 'No rules found for stack: ' . $stackId,
+                'error' => 'No rules found for stack: '.$stackId,
                 'available_stacks' => RulesDatabase::availableStacks(),
             ], 404);
         }
@@ -56,7 +56,7 @@ class RulesDatabaseController extends Controller
             'data' => [
                 'stack_id' => $stackId,
                 'rules' => array_map(
-                    static fn($rule): array => $rule->toArray(),
+                    static fn ($rule): array => $rule->toArray(),
                     $rules,
                 ),
                 'count' => count($rules),

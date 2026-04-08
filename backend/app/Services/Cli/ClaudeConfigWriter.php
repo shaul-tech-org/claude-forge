@@ -14,18 +14,19 @@ class ClaudeConfigWriter
 {
     public function __construct(
         private readonly FrontmatterParser $parser,
-    ) {}
+    ) {
+    }
 
     public function apply(string $projectPath, ClaudeConfig $config, string $mode = 'merge'): ApplyResult
     {
-        $basePath = rtrim($projectPath, '/') . '/.claude';
+        $basePath = rtrim($projectPath, '/').'/.claude';
 
         $created = [];
         $updated = [];
         $skipped = [];
 
         foreach ($config->agents as $agent) {
-            $filePath = $basePath . '/agents/' . $this->slug($agent->name) . '.md';
+            $filePath = $basePath.'/agents/'.$this->slug($agent->name).'.md';
             $result = $this->writeFile(
                 filePath: $filePath,
                 content: $this->generateAgentContent($agent),
@@ -36,7 +37,7 @@ class ClaudeConfigWriter
 
         foreach ($config->skills as $skill) {
             $skillDir = $this->slug($skill->name);
-            $filePath = $basePath . '/skills/' . $skillDir . '/' . $this->slug($skill->name) . '.md';
+            $filePath = $basePath.'/skills/'.$skillDir.'/'.$this->slug($skill->name).'.md';
             $result = $this->writeFile(
                 filePath: $filePath,
                 content: $this->generateSkillContent($skill),
@@ -46,8 +47,8 @@ class ClaudeConfigWriter
         }
 
         foreach ($config->rules as $rule) {
-            $category = $rule->category !== '' ? $rule->category . '/' : '';
-            $filePath = $basePath . '/rules/' . $category . $this->slug($rule->label) . '.md';
+            $category = $rule->category !== '' ? $rule->category.'/' : '';
+            $filePath = $basePath.'/rules/'.$category.$this->slug($rule->label).'.md';
             $result = $this->writeFile(
                 filePath: $filePath,
                 content: $this->generateRuleContent($rule),
@@ -69,7 +70,7 @@ class ClaudeConfigWriter
             'name' => $agent->name,
             'description' => $agent->description,
             'model' => $agent->model,
-        ], static fn(string $v): bool => $v !== '');
+        ], static fn (string $v): bool => $v !== '');
 
         return $this->parser->generate(meta: $meta, body: $agent->instructions);
     }
@@ -81,7 +82,7 @@ class ClaudeConfigWriter
             'description' => $skill->description,
             'userInvocable' => $skill->userInvocable,
             'trigger' => $skill->trigger,
-        ], static fn(mixed $v): bool => $v !== '' && $v !== false);
+        ], static fn (mixed $v): bool => $v !== '' && $v !== false);
 
         if ($skill->args !== []) {
             $meta['args'] = $skill->args;
@@ -99,7 +100,7 @@ class ClaudeConfigWriter
         $meta = array_filter([
             'label' => $rule->label,
             'category' => $rule->category,
-        ], static fn(string $v): bool => $v !== '');
+        ], static fn (string $v): bool => $v !== '');
 
         if ($rule->paths !== []) {
             $meta['paths'] = $rule->paths;

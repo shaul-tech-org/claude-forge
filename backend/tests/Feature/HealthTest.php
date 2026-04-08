@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 it('returns health status', function (): void {
     $response = $this->getJson('/api/health');
 

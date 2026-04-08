@@ -13,7 +13,8 @@ final class RecommendationEngine
 {
     public function __construct(
         private readonly TechStackRegistry $registry,
-    ) {}
+    ) {
+    }
 
     /**
      * Generate recommendations for the given stack IDs.
@@ -63,6 +64,7 @@ final class RecommendationEngine
      * Resolve the full chain of implied stacks, deduplicating by ID.
      *
      * @param string[] $stackIds
+     *
      * @return string[]
      */
     private function resolveImplies(array $stackIds): array
@@ -106,6 +108,7 @@ final class RecommendationEngine
 
     /**
      * @param string[] $stackIds
+     *
      * @return TechStack[]
      */
     private function collectStacks(array $stackIds): array
@@ -127,6 +130,7 @@ final class RecommendationEngine
      * Collect and deduplicate rules from all resolved stacks.
      *
      * @param string[] $stackIds
+     *
      * @return RuleTemplate[]
      */
     private function collectRules(array $stackIds): array
@@ -154,6 +158,7 @@ final class RecommendationEngine
      * Collect and deduplicate skills from all resolved stacks.
      *
      * @param string[] $stackIds
+     *
      * @return SkillTemplate[]
      */
     private function collectSkills(array $stackIds): array
@@ -182,6 +187,7 @@ final class RecommendationEngine
      * from the registry when no detailed rules are available for a stack.
      *
      * @param string[] $stackIds
+     *
      * @return RuleTemplate[]
      */
     private function collectDetailedRules(array $stackIds): array

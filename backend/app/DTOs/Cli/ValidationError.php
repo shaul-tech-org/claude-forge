@@ -9,7 +9,8 @@ readonly class ValidationError
     public function __construct(
         public string $field,
         public string $message,
-    ) {}
+    ) {
+    }
 
     public function toArray(): array
     {
