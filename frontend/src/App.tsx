@@ -5,6 +5,7 @@ import { PatternsPage } from './pages/PatternsPage';
 import { CreatePage } from './pages/CreatePage';
 import { PatternDetailPage } from './pages/PatternDetailPage';
 import { LearnPage } from './pages/LearnPage';
+import { AnalyzePage } from './pages/AnalyzePage';
 
 function App() {
   return (
@@ -15,8 +16,7 @@ function App() {
         <Route path="/patterns/:id" element={<PatternDetailPage />} />
         <Route path="/create" element={<CreatePage />} />
         <Route path="/create/builder" element={<AppLayout />} />
-        {/* Placeholder routes — implemented in later phases */}
-        <Route path="/analyze" element={<HomePage />} />
+        <Route path="/analyze" element={<AnalyzePage />} />
         <Route path="/learn" element={<LearnPage />} />
       </Routes>
     </BrowserRouter>
