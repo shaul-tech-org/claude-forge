@@ -5,6 +5,10 @@ declare(strict_types=1);
 use App\Http\Controllers\Cli\CliApplyController;
 use App\Http\Controllers\Cli\CliScanController;
 use App\Http\Controllers\Cli\CliValidateController;
+use App\Http\Controllers\Harness\ContextBudgetController;
+use App\Http\Controllers\Harness\EvaluateController;
+use App\Http\Controllers\Harness\PatternController;
+use App\Http\Controllers\Harness\RecommendController as HarnessRecommendController;
 use App\Http\Controllers\Recommendation\RecommendController;
 use App\Http\Controllers\Recommendation\RulesDatabaseController;
 use App\Http\Controllers\Recommendation\TechStackController;
@@ -28,4 +32,13 @@ Route::prefix('v1')->group(function (): void {
     Route::post('/recommendations', RecommendController::class);
     Route::get('/rules-db', [RulesDatabaseController::class, 'index']);
     Route::get('/rules-db/{stackId}', [RulesDatabaseController::class, 'show']);
+
+    // Harness Pattern API
+    Route::get('/patterns', [PatternController::class, 'index']);
+    Route::get('/patterns/{id}', [PatternController::class, 'show']);
+
+    // Harness Evaluation & Budget API
+    Route::post('/harness/evaluate', EvaluateController::class);
+    Route::post('/harness/context-budget', ContextBudgetController::class);
+    Route::post('/harness/recommend', HarnessRecommendController::class);
 });
