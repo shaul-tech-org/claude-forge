@@ -8,6 +8,7 @@ use App\Http\Controllers\Cli\CliValidateController;
 use App\Http\Controllers\Harness\ContextBudgetController;
 use App\Http\Controllers\Harness\EvaluateController;
 use App\Http\Controllers\Harness\PatternController;
+use App\Http\Controllers\Harness\GitHubImportController;
 use App\Http\Controllers\Harness\RecommendController as HarnessRecommendController;
 use App\Http\Controllers\Recommendation\RecommendController;
 use App\Http\Controllers\Recommendation\RulesDatabaseController;
@@ -41,4 +42,7 @@ Route::prefix('v1')->group(function (): void {
     Route::post('/harness/evaluate', EvaluateController::class);
     Route::post('/harness/context-budget', ContextBudgetController::class);
     Route::post('/harness/recommend', HarnessRecommendController::class);
+
+    // Import API
+    Route::post('/import/github', GitHubImportController::class);
 });
