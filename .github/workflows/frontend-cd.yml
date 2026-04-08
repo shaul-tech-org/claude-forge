@@ -1,15 +1,15 @@
-name: CD
+name: Frontend CD
 
 on:
   workflow_run:
-    workflows: ["CI"]
+    workflows: ["Frontend CI"]
     types: [completed]
     branches: [main]
   workflow_dispatch:
 
 jobs:
   deploy:
-    name: Deploy to Server
+    name: Deploy Frontend
     runs-on: ubuntu-latest
     if: >
       github.event_name == 'workflow_dispatch' ||
@@ -25,11 +25,11 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Install frontend dependencies
+      - name: Install dependencies
         working-directory: frontend
         run: npm ci
 
-      - name: Build frontend
+      - name: Build
         working-directory: frontend
         run: npm run build
 
@@ -42,7 +42,6 @@ jobs:
           script: |
             cd ${{ secrets.DEPLOY_PATH }}
             git pull origin main
-            docker compose build --no-cache
-            docker compose up -d
-            docker compose exec -T backend php artisan migrate --force
-            echo "Deploy completed at $(date)"
+            docker compose build --no-cache frontend
+            docker compose up -d frontend
+            echo "Frontend deploy completed at $(date)"
