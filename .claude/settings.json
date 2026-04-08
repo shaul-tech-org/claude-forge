@@ -1,6 +1,18 @@
 {
   "permissions": {
-    "allow": ["Read", "Glob", "Grep", "Agent"],
-    "ask": ["Bash", "Edit", "Write"]
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Agent"
+    ],
+    "ask": [
+      "Bash",
+      "Edit",
+      "Write"
+    ]
+  },
+  "enabledPlugins": {
+    "telegram@claude-plugins-official": true
   }
 }
