@@ -73,9 +73,11 @@ export function PatternsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchPatterns().then(({ data, categories: cats }) => {
-      setPatterns(data);
-      setCategories(cats);
+    fetchPatterns().then((result) => {
+      setPatterns(Array.isArray(result.data) ? result.data : []);
+      setCategories(Array.isArray(result.categories) ? result.categories : []);
+      setLoading(false);
+    }).catch(() => {
       setLoading(false);
     });
   }, []);

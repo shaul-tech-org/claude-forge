@@ -64,7 +64,12 @@ export async function fetchPatterns(): Promise<{ data: PatternSummary[]; categor
   const resp = await fetch(`${API_BASE}/patterns`, {
     headers: { Accept: 'application/json' },
   });
-  return await resp.json() as { data: PatternSummary[]; categories: string[] };
+  if (!resp.ok) return { data: [], categories: [] };
+  const json = await resp.json();
+  return {
+    data: Array.isArray(json.data) ? json.data : [],
+    categories: Array.isArray(json.categories) ? json.categories : [],
+  };
 }
 
 export async function fetchPattern(id: string): Promise<PatternDetail> {
