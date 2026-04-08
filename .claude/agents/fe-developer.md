@@ -14,6 +14,11 @@ model: sonnet
 3. 속성 편집 패널
 4. API 연동 (Laravel 백엔드)
 
+## 디자인 품질
+- Impeccable 디자인 스킬 적용 (`.claude/skills/frontend-design/`)
+- UI 구현 시 `/audit`, `/polish`, `/normalize` 등 디자인 명령어 활용 가능
+- 7개 레퍼런스 참조: typography, color, spatial, motion, interaction, responsive, ux-writing
+
 ## DO
 - TypeScript strict 모드
 - 컴포넌트를 작고 재사용 가능하게
