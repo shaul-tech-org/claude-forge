@@ -121,6 +121,31 @@ db-reset: ## DB 리셋 (drop + create + migrate)
 	docker exec -it $(BACKEND_CONTAINER) php artisan migrate
 
 # ==============================================================================
+# 프로덕션
+# ==============================================================================
+
+.PHONY: build-prod
+build-prod: ## 프로덕션 이미지 빌드
+	$(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.prod.yml build
+
+.PHONY: up-prod
+up-prod: ## 프로덕션 모드로 기동
+	$(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.prod.yml up -d
+
+.PHONY: deploy
+deploy: ## 프로덕션 배포 (pull + build + up + migrate)
+	git pull origin main
+	$(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.prod.yml build
+	$(DOCKER_COMPOSE) -f docker-compose.yml -f docker-compose.prod.yml up -d
+	@echo "DB가 준비될 때까지 대기 중..."
+	@until docker exec $(DB_CONTAINER) pg_isready -U $(DB_USER) -d $(DB_NAME) > /dev/null 2>&1; do \
+		sleep 2; \
+	done
+	docker exec $(BACKEND_CONTAINER) php artisan migrate --force
+	@echo ""
+	@echo "배포 완료."
+
+# ==============================================================================
 # 유틸리티
 # ==============================================================================
 

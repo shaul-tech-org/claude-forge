@@ -1,0 +1,25 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    volumes: []
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: runtime
+    volumes:
+      - backend_storage:/var/www/html/storage
+    restart: always
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+
+  db:
+    restart: always
+
+  nginx:
+    restart: always
