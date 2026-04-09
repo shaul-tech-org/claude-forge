@@ -12,6 +12,30 @@
       "Write"
     ]
   },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/block-dangerous-commands.sh"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/validate-subagent-output.sh"
+          }
+        ]
+      }
+    ]
+  },
   "enabledPlugins": {
     "telegram@claude-plugins-official": true
   }
