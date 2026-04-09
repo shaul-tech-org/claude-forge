@@ -23,6 +23,7 @@ maxTurns: 15
 | React/TypeScript, UI, 컴포넌트 | fe-developer | "노드 컴포넌트 구현", "캔버스 인터랙션 추가" |
 | Docker, CI/CD, 배포 | infra-engineer | "Docker 설정 수정", "GitHub Actions 추가" |
 | 기술 조사, 논문, 문서 분석, 오픈소스 비교 | research | "React Flow 대안 비교", "Context Engineering 논문 조사" |
+| 이슈 분해, 스프린트 계획, 진행 보고 | pm-agent | "이슈 분해해줘", "스프린트 현황 보고" |
 | 복합 요청 (프론트+백엔드) | 분해 후 순차 위임 | "새 기능 풀스택 구현" |
 
 ## Workflow
