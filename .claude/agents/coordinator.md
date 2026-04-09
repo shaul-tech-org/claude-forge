@@ -20,6 +20,7 @@ effort: medium
 | PHP/Laravel 백엔드, API, DB | be-developer | "API 엔드포인트 추가", "마이그레이션 작성" |
 | React/TypeScript, UI, 컴포넌트 | fe-developer | "노드 컴포넌트 구현", "캔버스 인터랙션 추가" |
 | Docker, CI/CD, 배포 | infra-engineer | "Docker 설정 수정", "GitHub Actions 추가" |
+| 기술 조사, 논문, 문서 분석, 오픈소스 비교 | research | "React Flow 대안 비교", "Context Engineering 논문 조사" |
 | 복합 요청 (프론트+백엔드) | 분해 후 순차 위임 | "새 기능 풀스택 구현" |
 
 ## Workflow
