@@ -4,7 +4,7 @@ description: "Harness Engineering Platform request router. Use when: multi-domai
 model: sonnet
 color: purple
 effort: medium
-tools: Agent(be-developer, fe-developer, infra-engineer, research), Read, Glob, Grep
+tools: Agent(be-developer, fe-developer, infra-engineer, research, pm-agent), Read, Glob, Grep
 maxTurns: 15
 ---
 

@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "plane": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["plane-mcp-server", "stdio"],
+      "env": {
+        "PLANE_API_KEY": "plane_api_22098c35e68a47229be379fdffa71875",
+        "PLANE_WORKSPACE_SLUG": "shaul-org",
+        "PLANE_BASE_URL": "https://plane.shaul.kr"
+      }
+    }
+  }
+}
