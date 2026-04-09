@@ -1,8 +1,8 @@
 ---
 name: fullstack
 description: 복합(풀스택) 작업을 coordinator 에이전트를 통해 분해하고 순차 위임한다. 백엔드+프론트엔드 등 여러 영역에 걸친 작업 시 사용.
-user_invocable: true
-args: "작업 내용 (예: '새 기능 풀스택 구현: 프로젝트 설정 CRUD')"
+user-invocable: true
+argument-hint: "작업 내용 (예: '새 기능 풀스택 구현: 프로젝트 설정 CRUD')"
 ---
 
 # 풀스택 작업 — Coordinator 경유
@@ -31,3 +31,10 @@ args: "작업 내용 (예: '새 기능 풀스택 구현: 프로젝트 설정 CRU
    - 각 에이전트별 작업 요약
    - 생성/수정된 전체 파일 목록
    - 통합 테스트 필요 여부 안내
+
+## 사용 예시
+
+```
+/fullstack 새 기능 풀스택 구현: 프로젝트 설정 CRUD
+/fullstack 하네스 평가 결과 저장 및 대시보드 표시
+```

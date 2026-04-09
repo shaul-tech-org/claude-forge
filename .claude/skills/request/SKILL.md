@@ -1,8 +1,8 @@
 ---
 name: request
 description: Plane 이슈 기반 작업 요청. 이슈 번호를 받아 컨텍스트를 로드하고 Coordinator가 적절한 에이전트에 라우팅한다.
-user_invocable: true
-args: "FORGE-{번호} 형식의 이슈 번호"
+user-invocable: true
+argument-hint: "FORGE-{번호} 형식의 이슈 번호"
 ---
 
 # 이슈 기반 작업 요청
@@ -41,3 +41,10 @@ Plane 이슈를 기반으로 작업을 수행한다.
 - 이슈에 sub-issue가 있으면, 각 sub-issue를 개별 작업 단위로 처리한다.
 - 커밋 메시지는 반드시 `feat: FORGE-{번호} {설명}` 형식을 따른다.
 - 작업 범위는 이슈에 명시된 내용만 수행한다.
+
+## 사용 예시
+
+```
+/request FORGE-12
+/request FORGE-45
+```

@@ -1,8 +1,8 @@
 ---
 name: fe
 description: 프론트엔드 작업을 fe-developer 에이전트에 직접 위임한다. Coordinator를 거치지 않고 React/TypeScript 작업을 빠르게 처리할 때 사용.
-user_invocable: true
-args: "작업 내용 (예: 'AgentNode 컴포넌트 구현', '속성 편집 패널 추가')"
+user-invocable: true
+argument-hint: "작업 내용 (예: 'AgentNode 컴포넌트 구현', '속성 편집 패널 추가')"
 ---
 
 # 프론트엔드 작업 직접 위임
@@ -30,3 +30,11 @@ fe-developer 에이전트에 프론트엔드 작업을 직접 위임한다.
    - 생성/수정된 파일 목록
    - 테스트 실행 결과
    - 디자인 품질 관련 참고사항
+
+## 사용 예시
+
+```
+/fe AgentNode 컴포넌트 구현
+/fe 속성 편집 패널 추가
+/fe 대시보드 사이드바 반응형 처리
+```

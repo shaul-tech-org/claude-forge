@@ -1,8 +1,8 @@
 ---
 name: be
 description: 백엔드 작업을 be-developer 에이전트에 직접 위임한다. Coordinator를 거치지 않고 PHP/Laravel 작업을 빠르게 처리할 때 사용.
-user_invocable: true
-args: "작업 내용 (예: '유저 API CRUD 구현', 'posts 테이블 마이그레이션 추가')"
+user-invocable: true
+argument-hint: "작업 내용 (예: '유저 API CRUD 구현', 'posts 테이블 마이그레이션 추가')"
 ---
 
 # 백엔드 작업 직접 위임
@@ -30,3 +30,11 @@ be-developer 에이전트에 백엔드 작업을 직접 위임한다.
    - 생성/수정된 파일 목록
    - 테스트 실행 결과
    - 추가 작업이 필요한 경우 안내
+
+## 사용 예시
+
+```
+/be 유저 API CRUD 구현
+/be posts 테이블 마이그레이션 추가
+/be 인증 미들웨어 리팩토링
+```

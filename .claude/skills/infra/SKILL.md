@@ -1,8 +1,8 @@
 ---
 name: infra
 description: 인프라 작업을 infra-engineer 에이전트에 직접 위임한다. Coordinator를 거치지 않고 Docker/CI 작업을 빠르게 처리할 때 사용.
-user_invocable: true
-args: "작업 내용 (예: 'Dockerfile 멀티스테이지 빌드 최적화', 'GitHub Actions 프론트엔드 파이프라인 추가')"
+user-invocable: true
+argument-hint: "작업 내용 (예: 'Dockerfile 멀티스테이지 빌드 최적화', 'GitHub Actions 프론트엔드 파이프라인 추가')"
 ---
 
 # 인프라 작업 직접 위임
@@ -30,3 +30,11 @@ infra-engineer 에이전트에 인프라 작업을 직접 위임한다.
    - 생성/수정된 파일 목록
    - 검증 결과 (docker compose config, 빌드 테스트 등)
    - 환경 변수 변경이 있을 경우 안내
+
+## 사용 예시
+
+```
+/infra Dockerfile 멀티스테이지 빌드 최적화
+/infra GitHub Actions 프론트엔드 파이프라인 추가
+/infra docker-compose 개발/프로덕션 환경 분리
+```

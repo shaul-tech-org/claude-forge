@@ -1,8 +1,8 @@
 ---
 name: plane-start
 description: Plane 이슈 작업 시작. 이슈 상태를 In Progress로 변경하고 작업 브랜치를 생성한다.
-user_invocable: true
-args: "FORGE-{번호} 형식의 이슈 번호"
+user-invocable: true
+argument-hint: "FORGE-{번호} 형식의 이슈 번호"
 ---
 
 # Plane 이슈 작업 시작
@@ -49,3 +49,9 @@ git checkout -b feature/FORGE-{번호}-{이슈명을-kebab-case로}
 ```
 
 6. 이슈의 상세 내용(name, description_html, priority, sub-issues)을 출력하여 작업 컨텍스트를 제공한다.
+
+## 사용 예시
+
+```
+/plane-start FORGE-12
+```

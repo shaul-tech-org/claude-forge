@@ -1,8 +1,8 @@
 ---
 name: plane-done
 description: Plane 이슈 작업 완료. 이슈 상태를 Done으로 변경하고 작업 요약 코멘트를 추가한다.
-user_invocable: true
-args: "FORGE-{번호} 형식의 이슈 번호 (생략 시 현재 브랜치에서 추출)"
+user-invocable: true
+argument-hint: "FORGE-{번호} 형식의 이슈 번호 (생략 시 현재 브랜치에서 추출)"
 ---
 
 # Plane 이슈 작업 완료
@@ -53,3 +53,10 @@ curl -s -X PATCH \
 ```
 
 7. 완료된 이슈 정보와 요약을 출력한다.
+
+## 사용 예시
+
+```
+/plane-done FORGE-12
+/plane-done               ← 현재 브랜치에서 이슈 번호 자동 추출
+```

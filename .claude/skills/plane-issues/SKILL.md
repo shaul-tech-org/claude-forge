@@ -1,7 +1,7 @@
 ---
 name: plane-issues
 description: Plane 이슈 목록 조회. Todo/In Progress 상태의 이슈를 확인하여 작업 대상을 파악한다.
-user_invocable: true
+user-invocable: true
 ---
 
 # Plane 이슈 조회
@@ -52,3 +52,9 @@ curl -s -H "x-api-key: $PLANE_API_KEY" \
 ```
 
 4. sub-issue가 있는 경우, parent 이슈 아래에 들여쓰기로 표시한다.
+
+## 사용 예시
+
+```
+/plane-issues
+```

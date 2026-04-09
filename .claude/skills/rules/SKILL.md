@@ -1,8 +1,8 @@
 ---
 name: rules
 description: "Laravel 규칙 관리 — 사용할 규칙을 선택적으로 활성화/비활성화한다."
-user_invocable: true
-args: "서브커맨드 [인자...] (예: 'list', 'activate routing middleware', 'preset api', 'deactivate all')"
+user-invocable: true
+argument-hint: "서브커맨드 [인자...] (예: 'list', 'activate routing middleware', 'preset api', 'deactivate all')"
 ---
 
 # Laravel 규칙 관리
@@ -86,4 +86,18 @@ Laravel 규칙 라이브러리에서 필요한 규칙만 선택하여 활성화/
 - `minimal` — 최소 (4개 규칙)
 
 > 사용법: `/rules activate routing middleware` 또는 `/rules preset api`
+```
+
+## 사용 예시
+
+```
+/rules                    ← 전체 규칙 목록 + 상태 표시
+/rules active             ← 현재 활성 규칙만 표시
+/rules show controllers   ← 특정 규칙 내용 확인
+/rules activate routing middleware
+/rules deactivate routing
+/rules deactivate all     ← 전체 비활성화 (general 제외)
+/rules preset api         ← API 프리셋 일괄 활성화
+/rules preset web
+/rules preset minimal
 ```

@@ -1,8 +1,8 @@
 ---
 name: research
 description: 기술 조사 작업을 research 에이전트에 위임한다. 논문, 공식 문서, 오픈소스 비교, 웹 리서치 수행. 결과는 docs/research/에 문서화.
-user_invocable: true
-args: "조사 주제 (예: 'React Flow 상태 관리 라이브러리 비교', 'Laravel 13 신기능 분석')"
+user-invocable: true
+argument-hint: "조사 주제 (예: 'React Flow 상태 관리 라이브러리 비교', 'Laravel 13 신기능 분석')"
 ---
 
 # 기술 조사 — Research Agent 위임
@@ -28,3 +28,11 @@ research 에이전트에 기술 조사 작업을 위임한다.
    - 핵심 발견사항 (3-5줄)
    - 권장 사항
    - 생성된 문서 파일 위치
+
+## 사용 예시
+
+```
+/research React Flow 상태 관리 라이브러리 비교
+/research Laravel 13 신기능 분석
+/research Claude Code 하네스 설계 패턴 조사
+```
