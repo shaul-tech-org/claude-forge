@@ -32,10 +32,18 @@ app/
 - 트랜잭션은 Service에서 관리 (`DB::transaction()`)
 
 ## 라우팅
-- API 라우트: `routes/api.php`
+- API 라우트: `routes/api.php`, 웹 라우트: `routes/web.php`
+- 클로저 라우트 금지 — 컨트롤러 사용 (캐싱 호환)
 - RESTful 명명 (index, store, show, update, destroy)
 - Route Group으로 prefix/middleware 정리
-- API versioning: `/api/v1/`
+- Route Model Binding 활용
+- API versioning: `apiPrefix: 'api/v1'`
+
+## 추가 규칙
+- `/rules list` — 사용 가능한 상세 규칙 목록 확인
+- `/rules preset api` — API 개발 규칙셋 활성화
+- `/rules activate <규칙명>` — 개별 규칙 활성화
+- 상세 규칙은 `.claude/rule-library/backend/laravel/`에 보관
 
 ## 설정
 - `.env` 직접 참조 금지 → `config()` 헬퍼 사용
